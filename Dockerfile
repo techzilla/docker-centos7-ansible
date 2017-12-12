@@ -15,13 +15,26 @@ rm -f /lib/systemd/system/anaconda.target.wants/*;
 
 # Install Ansible and other requirements.
 RUN yum makecache fast \
- && yum -y install deltarpm epel-release initscripts \
+ && yum -y install deltarpm epel-release initscripts firewalld \
  && yum -y update \
  && yum -y install \
       ansible \
       sudo \
       which \
+      redhat-lsb-core \
+      python-devel \
+      openldap-devel \
+      git \
+      gcc \
+      gcc-c++ \
+      python2-pip \
  && yum clean all
+
+# Install Tox
+RUN pip install -U pip tox
+
+# Disable yum TLS
+RUN echo 'sslverify=0' >> /etc/yum.conf
 
 # Disable requiretty.
 RUN sed -i -e 's/^\(Defaults\s*requiretty\)/#--- \1/'  /etc/sudoers
