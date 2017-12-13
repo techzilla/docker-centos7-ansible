@@ -15,7 +15,7 @@ rm -f /lib/systemd/system/anaconda.target.wants/*;
 
 # Install Ansible and other requirements.
 RUN yum makecache fast \
- && yum -y install deltarpm epel-release initscripts firewalld \
+ && yum -y install deltarpm epel-release initscripts \
  && yum -y update \
  && yum -y install \
       ansible \
@@ -28,6 +28,7 @@ RUN yum makecache fast \
       gcc \
       gcc-c++ \
       python2-pip \
+      firewalld \
  && yum clean all
 
 # Install Tox
