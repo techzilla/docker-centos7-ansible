@@ -28,7 +28,6 @@ RUN yum makecache fast \
       gcc \
       gcc-c++ \
       python2-pip \
-      firewalld \
  && yum clean all
 
 # Install Tox
@@ -45,3 +44,4 @@ RUN echo -e '[local]\nlocalhost ansible_connection=local' > /etc/ansible/hosts
 
 VOLUME ["/sys/fs/cgroup"]
 CMD ["/usr/sbin/init"]
+
